@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//Finds out the number of L Shapes
 int count(int x, int y) {
     if (x == 1 || y == 1)
         return 0;
@@ -15,6 +16,8 @@ int main() {
     cin >> t;
     for (int i = 0; i < t; i++) {
         cin >> row >> col;
+        
+        //Geting input of matrix
         vector<vector<long long>> mat(row, vector<long long>(col, 0));
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < col; c++) {
@@ -23,18 +26,14 @@ int main() {
         }
 
         long long ans = 0;
+        
         vector < vector <  long long >> top(row, vector<long long>(col, 0));
         vector < vector <  long long >> left(row, vector<long long>(col, 0));
         vector < vector <  long long >> bot(row, vector<long long>(col, 0));
         vector < vector <  long long >> right(row, vector<long long>(col, 0));
 
-        for (int r = 1; r < row; r++) {
-            if (mat[r][0] == 0)
-                continue;
-            top[r][0] = top[r - 1][0] + top[r][0];
-        }
-
-    //top and left
+   
+    //Constructing top and left Matrices
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < col; c++) {
                 if (mat[r][c] == 0)
@@ -52,7 +51,7 @@ int main() {
             }
         }
 
-        //bottom and right
+        //Constructing bottom and right matrices
         for (int r = row - 1; r >= 0; r--) {
             for (int c = col - 1; c >= 0; c--) {
                 if (mat[r][c] == 0)
@@ -71,6 +70,7 @@ int main() {
             }
         }
       
+        // Passing (top,left) , (top,right) , (bottom,left) , (bottom,right) to Count(x,y) function to find out the number of L-shapes
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < col; c++) {
                 if(mat[r][c] ==0)
